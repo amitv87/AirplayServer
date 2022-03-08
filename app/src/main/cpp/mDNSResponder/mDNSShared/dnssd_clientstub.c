@@ -28,6 +28,7 @@
 
 #include <errno.h>
 #include <stdlib.h>
+#include <stdarg.h>
 
 #include "dnssd_ipc.h"
 
@@ -79,14 +80,29 @@ static void syslog( int priority, const char * message, ...)
     WSASetLastError( err );
 }
 #else
+    #define LOG_WARNING 1
+    #define LOG_INFO 2
 
     #include <fcntl.h>      // For O_RDWR etc.
     #include <sys/time.h>
     #include <sys/socket.h>
-    #include <syslog.h>
+    // #include <syslog.h>
 
     #define sockaddr_mdns sockaddr_un
     #define AF_MDNS AF_LOCAL
+
+    static void syslog( int priority, const char * message, ...){
+        va_list args;
+        int len;
+        char * buffer;
+        int err = errno;
+        (void) priority;
+        va_start(args, message);
+        vfprintf(stderr, message, args);
+        fprintf(stderr, "\r\n");
+        va_end(args);
+        errno = err;
+    }
 
 #endif
 

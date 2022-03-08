@@ -29,7 +29,6 @@
 #include "logger.h"
 #include "compat.h"
 #include "raop_rtp_mirror.h"
-#include <android/log.h>
 
 struct raop_s {
 	/* Callbacks for audio */

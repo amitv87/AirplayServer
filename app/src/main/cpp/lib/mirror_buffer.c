@@ -11,7 +11,9 @@
 #include "compat.h"
 #include "ed25519/sha512.h"
 #include <math.h>
-#include <malloc.h>
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
 #include <assert.h>
 //#define DUMP_KEI_IV
 struct mirror_buffer_s {
